@@ -1,15 +1,15 @@
 :root {
-  --bg: #f4f7fb;
-  --paper: #f8fbff;
-  --ink: #18212f;
-  --muted: #5f6b7a;
-  --line: #d0daea;
-  --accent: #1f6feb;
-  --accent-soft: rgba(31, 111, 235, 0.08);
-  --accent-strong: #174ea6;
-  --success: #1a5fa8;
-  --code-bg: #eef3fb;
-  --shadow: 0 18px 48px rgba(20, 30, 50, 0.08);
+  --bg: #eef4ff;
+  --paper: #f9fbff;
+  --ink: #1b2537;
+  --muted: #58667d;
+  --line: #d7e0f0;
+  --accent: #2b63c6;
+  --accent-soft: #e4efff;
+  --accent-strong: #1f4a96;
+  --success: #1f5f8b;
+  --code-bg: #edf4ff;
+  --shadow: 0 18px 48px rgba(28, 46, 79, 0.1);
 }
 
 * {
@@ -22,7 +22,7 @@ html {
 
 body {
   margin: 0;
-  background: linear-gradient(180deg, #f0f5fc 0%, #eef3f8 100%);
+  background: linear-gradient(180deg, #eaf2ff 0%, #f6f9ff 100%);
   color: var(--ink);
   font-family: "Pretendard", "SUIT", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
   line-height: 1.7;
@@ -46,7 +46,7 @@ pre {
   overflow: auto;
   border: 1px solid var(--line);
   border-radius: 14px;
-  background: #f5f9ff;
+  background: #f7faff;
   font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
   font-size: 0.88rem;
   line-height: 1.6;
@@ -61,7 +61,7 @@ pre {
   position: relative;
   margin-bottom: 28px;
   padding: 44px 52px 52px;
-  border: 1px solid rgba(31, 111, 235, 0.12);
+  border: 1px solid rgba(67, 96, 145, 0.18);
   border-radius: 28px;
   background: var(--paper);
   box-shadow: var(--shadow);
@@ -73,7 +73,7 @@ pre {
   position: absolute;
   inset: 0 0 auto 0;
   height: 7px;
-  background: linear-gradient(90deg, #1f6feb 0%, #93c5fd 50%, #174ea6 100%);
+  background: linear-gradient(90deg, #5d8fe6 0%, #a5c4ff 50%, #2f64c9 100%);
 }
 
 .hero {
@@ -138,7 +138,7 @@ pre {
 .problem-card {
   border: 1px solid var(--line);
   border-radius: 20px;
-  background: #f8fbff;
+  background: #fcfdff;
 }
 
 .meta-card {
@@ -183,10 +183,10 @@ pre {
 
 .chip {
   padding: 8px 12px;
-  border: 1px solid rgba(31, 111, 235, 0.2);
+  border: 1px solid #c5d7f5;
   border-radius: 999px;
-  background: rgba(31, 111, 235, 0.06);
-  color: #174ea6;
+  background: #edf4ff;
+  color: #214072;
   font-size: 0.92rem;
   font-weight: 600;
 }
@@ -219,7 +219,7 @@ pre {
   height: auto;
   display: block;
   border-radius: 16px;
-  border: 1px solid #d0daea;
+  border: 1px solid #d5e3fb;
   background: white;
 }
 
@@ -291,19 +291,19 @@ pre {
   display: inline-block;
   margin: 0 4px 4px 0;
   padding: 4px 10px;
-  border: 1px solid rgba(31, 111, 235, 0.18);
+  border: 1px solid #c6d8f6;
   border-radius: 999px;
-  background: rgba(31, 111, 235, 0.06);
-  color: #174ea6;
+  background: #edf4ff;
+  color: #234278;
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.01em;
 }
 
 .insight-callout {
-  border: 1px solid rgba(31, 111, 235, 0.2);
+  border: 1px solid #b7cdf2;
   border-radius: 18px;
-  background: rgba(31, 111, 235, 0.04);
+  background: #eff5ff;
   padding: 20px 22px;
 }
 
@@ -332,26 +332,26 @@ table {
   width: 100%;
   border-collapse: collapse;
   min-width: 880px;
-  background: #f8fbff;
+  background: #fcfdff;
 }
 
 th,
 td {
   padding: 12px 14px;
-  border-bottom: 1px solid #d0daea;
+  border-bottom: 1px solid #dde7f8;
   vertical-align: top;
   text-align: left;
   font-size: 0.92rem;
 }
 
 th {
-  background: rgba(31, 111, 235, 0.06);
+  background: #edf4ff;
   font-weight: 700;
 }
 
 .score {
   font-weight: 800;
-  color: #2f4d7a;
+  color: #1f4ea3;
 }
 
 .footnote {
@@ -388,12 +388,22 @@ th {
 }
 
 @media print {
+  html,
   body {
     background: white;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  body {
+    margin: 0;
+    font-size: 11pt;
+    line-height: 1.5;
   }
 
   .document {
     width: 100%;
+    max-width: none;
     margin: 0;
   }
 
@@ -403,11 +413,14 @@ th {
     border: none;
     border-radius: 0;
     box-shadow: none;
+    overflow: visible;
     break-after: page;
+    page-break-after: always;
   }
 
   .page:last-child {
     break-after: auto;
+    page-break-after: auto;
   }
 
   .page::before {
@@ -419,11 +432,86 @@ th {
   }
 
   .diagram-card img {
-    max-height: 220mm;
+    max-height: 165mm;
     object-fit: contain;
+    page-break-inside: avoid;
+    break-inside: avoid;
   }
 
   a {
     text-decoration: none;
+  }
+
+  .meta-grid,
+  .summary-grid,
+  .baseline-grid,
+  .diagram-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .problem-list {
+    gap: 10px;
+  }
+
+  h2,
+  h3 {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  p,
+  li {
+    orphans: 3;
+    widows: 3;
+  }
+
+  .meta-card,
+  .summary-card,
+  .diagram-card,
+  .insight-callout,
+  .table-wrap,
+  pre,
+  figure {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .problem-card {
+    break-inside: auto;
+    page-break-inside: auto;
+  }
+
+  .table-wrap {
+    overflow: visible;
+    border-radius: 0;
+  }
+
+  table {
+    min-width: 0;
+    table-layout: fixed;
+    font-size: 0.82rem;
+  }
+
+  thead {
+    display: table-header-group;
+  }
+
+  tr,
+  th,
+  td {
+    page-break-inside: avoid;
+    break-inside: avoid;
+    word-break: break-word;
+  }
+
+  th,
+  td {
+    padding: 8px 9px;
+  }
+
+  pre {
+    white-space: pre-wrap;
+    overflow: visible;
   }
 }
