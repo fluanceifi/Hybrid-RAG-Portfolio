@@ -1,6 +1,5 @@
-==============================================================================
-Hybrid Top-1 Accuracy Comparison (20-query Golden Set)
-==============================================================================
+# Hybrid Top-1 Accuracy Comparison (20-query Golden Set)
+
 Hybrid setup: bm25=0.8, knn=0.1, rank_constant=20
 Total queries: 20
 BM25 Tuned (title/content boosted): 95.00%
