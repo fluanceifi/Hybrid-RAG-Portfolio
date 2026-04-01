@@ -8,12 +8,14 @@
 </head>
 <body>
 <main class="document">
+
+    <!-- ────────── HERO ────────── -->
     <section class="page hero">
         <span class="eyebrow">Project Portfolio</span>
         <h1>Hybrid RAG Portfolio</h1>
         <p class="lead">
-            토스페이먼츠 API 실문서를 대상으로 Elasticsearch 기반 RAG 검색 품질을 개선한 프로젝트다.<br>
-            Apache Lucene Analyzer + BM25 + kNN(HNSW) + Weighted RRF 조합을 운영 관점에서 튜닝했고, <br>
+            토스페이먼츠 API 실문서를 대상으로 Elasticsearch 기반 RAG 검색 품질을 개선한 프로젝트다.
+            Apache Lucene Analyzer + BM25 + kNN(HNSW) + Weighted RRF 조합을 운영 관점에서 튜닝했고,
             baseline을 두 트랙으로 분리해 개선 원인을 명확히 검증했다.
         </p>
 
@@ -24,7 +26,7 @@
             </article>
             <article class="meta-card">
                 <span class="label">핵심 스택</span>
-                <div class="value">FastAPI, Elasticsearch,<br/> OpenAI Embedding, Docker</div>
+                <div class="value">FastAPI, Elasticsearch, OpenAI Embedding, Docker</div>
             </article>
             <article class="meta-card">
                 <span class="label">검증 데이터</span>
@@ -39,7 +41,7 @@
             <span class="chip">kNN (HNSW)</span>
             <span class="chip">Weighted RRF</span>
             <span class="chip">text-embedding-3-small</span>
-            <span class="chip">text-embedding-3-large</span> <br/>
+            <span class="chip">text-embedding-3-large</span>
             <span class="chip">FastAPI</span>
             <span class="chip">Docker Compose</span>
         </div>
@@ -48,21 +50,21 @@
             <article class="summary-card">
                 <h3>Baseline Track A (BM25 Query Strategy)</h3>
                 <p class="metric-line">
-                    <strong>35.00% → 95.00%</strong> <br>
+                    <strong>35.00% → 95.00%</strong>
                     <span class="badge">model: n/a</span>
                     <span class="badge">weights: n/a</span>
                     <span class="badge">dedup: n/a</span>
                 </p>
                 <p>
                     초기에는 본문만 검색 → 중복 단어 多, 정확도 35%<br>
-                    제목을 검색 범위에 추가 + 제목 가중치 3배 적용 튜닝 → 정확도 95% <br> <br>
-                    <strong>초기 35%는 dedup 문제가 아닌, 단순 검색 방식의 기준 성능</strong>
+                    제목을 검색 범위에 추가 + 제목 가중치 3배 적용 → 정확도 95%
                 </p>
+                <p><strong>초기 35%는 dedup 문제가 아닌, 단순 검색 방식의 기준 성능</strong></p>
                 <p class="evidence">
-                    evidence:
-                    <a target="_blank" rel="noopener noreferrer" href="https://github.com/fluanceifi/Hybrid-RAG-Portfolio/blob/main/data/bm25_eval_report.md">data/bm25_eval_report.md</a>
+                    evidence: <a target="_blank" rel="noopener noreferrer" href="https://github.com/fluanceifi/Hybrid-RAG-Portfolio/blob/main/data/bm25_eval_report.md">data/bm25_eval_report.md</a>
                 </p>
             </article>
+
             <article class="summary-card">
                 <h3>Baseline Track B (Hybrid RRF Stability)</h3>
                 <p class="metric-line">
@@ -72,13 +74,11 @@
                     <span class="badge">dedup: off → on</span>
                 </p>
                 <p>
-                    문서 20섹션 → 48청크로 분산, <br>
-                    동일 섹션 청크가 RRF 점수 누적 → 상위 독식<br>
+                    20섹션 → 48청크로 분산, 동일 섹션 청크가 RRF 점수 누적 → 상위 독식<br>
                     중복 제거로 후보 수 감소 → k=5에서 k=10으로 상향 조정<br>
-                    7:3 가중치 동일 조건에서 dedup 미적용 시 45% → 적용 후 100% 회복<br><br>
-
-                    <strong>핵심: fusion 전 병합 단위 정규화</strong>
+                    7:3 가중치 동일 조건에서 dedup 미적용 시 45% → 적용 후 100% 회복
                 </p>
+                <p><strong>핵심: fusion 전 병합 단위 정규화</strong></p>
                 <p class="evidence">
                     evidence:
                     <a target="_blank" rel="noopener noreferrer" href="https://github.com/fluanceifi/Hybrid-RAG-Portfolio/blob/main/data/hybrid_eval_b0.7_k0.3_rc20_kc10.md">data/hybrid_eval_b0.7_k0.3_rc20_kc10.md</a>,
@@ -88,6 +88,7 @@
         </div>
     </section>
 
+    <!-- ────────── BASELINE 정의 ────────── -->
     <section class="page">
         <h2 class="section-title">Baseline 정의와 혼선 방지</h2>
         <p class="section-desc">
@@ -97,7 +98,7 @@
         <div class="insight-callout">
             <h3>혼선 방지 핵심 문장</h3>
             <p>
-                <strong>35%는 BM25 초기 query 전략 baseline이며, dedup 이슈와 무관하다.</strong> <br>
+                <strong>35%는 BM25 초기 query 전략 baseline이며, dedup 이슈와 무관하다.</strong><br>
                 dedup 영향은 Hybrid RRF 병합 단계에서 발생했고, 7:3 기준
                 <strong>45% → 100%</strong> 개선 구간으로 별도 관리한다.
             </p>
@@ -123,6 +124,7 @@
         </div>
     </section>
 
+    <!-- ────────── ARCHITECTURE ────────── -->
     <section class="page">
         <h2 class="section-title">Architecture &amp; Retrieval Strategy</h2>
         <p class="section-desc">
@@ -170,6 +172,7 @@
         </div>
     </section>
 
+    <!-- ────────── TROUBLESHOOTING ────────── -->
     <section class="page">
         <h2 class="section-title">Troubleshooting</h2>
         <p class="section-desc">
@@ -183,7 +186,7 @@
                 <div class="subheading">원인</div>
                 <p>
                     API 문서의 각 섹션은 <code>reference#결제승인</code>처럼 fragment 단위로 구분되지만,
-                    HTTP 요청 시 fragment는 서버에 전달되지 않는다.<br>
+                    HTTP 요청 시 fragment는 서버에 전달되지 않는다.
                     결과적으로 같은 페이지가 섹션 수만큼 반복 수집되어 동일 문서가 중복 인덱싱됐고,
                     BM25 스코어와 kNN 유사도 모두 왜곡됐다.
                 </p>
@@ -191,24 +194,19 @@
                 <ul class="tight-list">
                     <li>
                         <strong>fetch 단계 fragment 제거 dedup</strong>:
-                        URL 수집 시 fragment를 제거한 뒤 중복 URL을 필터링하여
-                        동일 페이지를 한 번만 요청하도록 수정했다.
+                        URL 수집 시 fragment를 제거한 뒤 중복 URL을 필터링하여 동일 페이지를 한 번만 요청하도록 수정했다.
                     </li>
                     <li>
                         <strong>문서/청크 해시 기반 중복 제거</strong>:
-                        수집된 문서의 본문 내용을 해시화하여
-                        내용이 동일한 청크는 인덱싱 단계에서 제거했다.
+                        수집된 문서의 본문 내용을 해시화하여 내용이 동일한 청크는 인덱싱 단계에서 제거했다.
                     </li>
                     <li>
                         <strong>섹션 분할 후 장문 청킹 재구성</strong>:
-                        중복 제거 이후 섹션 단위로 문서를 재분할하고,
-                        청킹을 재구성하여 섹션 경계가 명확한 검색 단위를 확보했다.
+                        중복 제거 이후 섹션 단위로 문서를 재분할하고, 청킹을 재구성하여 섹션 경계가 명확한 검색 단위를 확보했다.
                     </li>
                 </ul>
                 <div class="subheading">근거</div>
-                <p class="evidence">
-                    <a target="_blank" rel="noopener noreferrer" href="https://github.com/fluanceifi/hybrid-search-rag/blob/main/README.md">README.md</a>
-                </p>
+                <p class="evidence"><a target="_blank" rel="noopener noreferrer" href="https://github.com/fluanceifi/hybrid-search-rag/blob/main/README.md">README.md</a></p>
             </article>
 
             <article class="problem-card">
@@ -217,19 +215,15 @@
                 <div class="subheading">원인</div>
                 <p>
                     한 섹션이 여러 청크로 쪼개진 상태에서 RRF 병합을 수행 시,
-                    같은 섹션의 청크들이 BM25/kNN 양쪽 리스트에 각각 등장해
-                    점수가 청크 수만큼 누적된다.<br>
-                    실제로는 순위가 낮은 섹션이 청크 수가 많다는 이유만으로 1등을 차지하는
-                    왜곡이 발생했다.
+                    같은 섹션의 청크들이 BM25/kNN 양쪽 리스트에 각각 등장해 점수가 청크 수만큼 누적된다.
+                    실제로는 순위가 낮은 섹션이 청크 수가 많다는 이유만으로 1등을 차지하는 왜곡이 발생했다.
                 </p>
                 <div class="subheading">해결</div>
                 <ul class="tight-list">
                     <li>
-                        RRF 계산 전에 <code>section_key</code> 기준 dedup 적용
-                        <br>
+                        RRF 계산 전에 <code>section_key</code> 기준 dedup 적용 —
                         <code>es_store.py:116</code> <code>dedup_by_doc_key()</code>:
-                        BM25/kNN 각 리스트에서 동일 <code>section_key</code>의 첫 청크만 남기고
-                        제거
+                        BM25/kNN 각 리스트에서 동일 <code>section_key</code>의 첫 청크만 남기고 제거
                     </li>
                     <li>병합 단위를 문서 의미 단위로 정규화</li>
                 </ul>
@@ -238,10 +232,8 @@
                     <li>7:3 동일 조건에서 45% → 100% 회복</li>
                 </ul>
                 <p class="evidence">
-                    <a target="_blank" rel="noopener noreferrer" href="https://github.com/fluanceifi/Hybrid-RAG-Portfolio/blob/main/data/hybrid_eval_b0.7_k0.3_rc20_kc10.md">hybrid_eval_b0.7_
-                        k0.3_rc20_kc10.md</a>,
-                    <a target="_blank" rel="noopener noreferrer" href="https://github.com/fluanceifi/Hybrid-RAG-Portfolio/blob/main/data/hybrid_eval_report_7_3_dedup.md">hybrid_eval_report_7
-                        _3_dedup.md</a>
+                    <a target="_blank" rel="noopener noreferrer" href="https://github.com/fluanceifi/Hybrid-RAG-Portfolio/blob/main/data/hybrid_eval_b0.7_k0.3_rc20_kc10.md">hybrid_eval_b0.7_k0.3_rc20_kc10.md</a>,
+                    <a target="_blank" rel="noopener noreferrer" href="https://github.com/fluanceifi/Hybrid-RAG-Portfolio/blob/main/data/hybrid_eval_report_7_3_dedup.md">hybrid_eval_report_7_3_dedup.md</a>
                 </p>
             </article>
 
@@ -266,6 +258,7 @@
         </div>
     </section>
 
+    <!-- ────────── 실험 결과 ────────── -->
     <section class="page">
         <h2 class="section-title">실험 결과 (단계별 병기)</h2>
         <p class="section-desc">
@@ -277,27 +270,21 @@
                 <h3>RRF Dedup 영향</h3>
                 <figure>
                     <img src="./assets/images/dedup-impact.png" alt="Dedup impact chart"/>
-                    <figcaption>
-                        dedup off/on 차이가 hybrid 랭킹 안정성에 직접적으로 영향을 미친다.
-                    </figcaption>
+                    <figcaption>dedup off/on 차이가 hybrid 랭킹 안정성에 직접적으로 영향을 미친다.</figcaption>
                 </figure>
             </article>
             <article class="diagram-card">
                 <h3>가중치 민감도</h3>
                 <figure>
                     <img src="./assets/images/weight-sensitivity.png" alt="Weight sensitivity chart"/>
-                    <figcaption>
-                        85:15와 7:3은 강한 성능을 보였고, 9:1은 오히려 후퇴할 수 있음을 확인했다.
-                    </figcaption>
+                    <figcaption>85:15와 7:3은 강한 성능을 보였고, 9:1은 오히려 후퇴할 수 있음을 확인했다.</figcaption>
                 </figure>
             </article>
             <article class="diagram-card">
                 <h3>모델 비교 (small vs large)</h3>
                 <figure>
                     <img src="./assets/images/model-comparison.png" alt="Model comparison chart"/>
-                    <figcaption>
-                        large 모델 7:3도 100%를 달성했지만, small 모델에서도 가중치 최적화로 100% 도달 가능했다.
-                    </figcaption>
+                    <figcaption>large 모델 7:3도 100%를 달성했지만, small 모델에서도 가중치 최적화로 100% 도달 가능했다.</figcaption>
                 </figure>
             </article>
         </div>
@@ -347,8 +334,7 @@
                     </td>
                     <td class="score">45.00%</td>
                     <td>동일 섹션 중복 누적으로 RRF 왜곡</td>
-                    <td><a target="_blank" rel="noopener noreferrer" href="https://github.com/fluanceifi/Hybrid-RAG-Portfolio/blob/main/data/hybrid_eval_b0.7_k0.3_rc20_kc10.md">hybrid_eval_b0.7_k0.3_rc20_kc10.md</a>
-                    </td>
+                    <td><a target="_blank" rel="noopener noreferrer" href="https://github.com/fluanceifi/Hybrid-RAG-Portfolio/blob/main/data/hybrid_eval_b0.7_k0.3_rc20_kc10.md">hybrid_eval_b0.7_k0.3_rc20_kc10.md</a></td>
                 </tr>
                 <tr>
                     <td>Hybrid Stabilized</td>
@@ -400,12 +386,14 @@
                 </tbody>
             </table>
         </div>
+
         <p class="footnote">
             주의: <code>eval_report_small_85_15.md</code> 헤더는 출력 포맷(소수점 1자리) 때문에
             <code>0.8:0.1</code>로 보일 수 있다. 실험 요약 문서에서는 85:15로 관리한다.
         </p>
     </section>
 
+    <!-- ────────── REFERENCE-DRIVEN TUNING ────────── -->
     <section class="page">
         <h2 class="section-title">Reference-Driven Tuning</h2>
         <p class="section-desc">
@@ -436,26 +424,33 @@
         </div>
     </section>
 
+    <!-- ────────── 재현 및 근거 ────────── -->
     <section class="page">
         <h2 class="section-title">재현 및 근거</h2>
         <p class="section-desc">
             본 포트폴리오의 핵심 수치는 로컬 리포트 파일 기반이며, 아래 커맨드로 재현 가능하다.
         </p>
-        <pre><code>cd /Users/sjy/fisa/be/seminar/pg-rag
+        <pre><code># 0) 레포 클론
+git clone https://github.com/fluanceifi/hybrid-search-rag
+cd hybrid-search-rag
 
-# 1) 문서 수집/분할/청킹
-python3 scripts/pipeline/fetch_raw_docs.py --seed-chunks data/chunks.json --out data/raw_docs.jsonl
-python3 scripts/pipeline/split_sections.py --raw data/raw_docs.jsonl --seed-chunks data/chunks.json --out data/section_docs.jsonl
-python3 scripts/pipeline/chunk_raw_docs.py --in data/section_docs.jsonl --out data/chunks_long.json --chunk-size 700 --overlap 120
+# 1) 전체 파이프라인 (수집 → 분할 → 청킹 → 인덱싱)
+python3 pg-rag/setup_pipeline.py
 
-# 2) 인덱싱
-CHUNKS_PATH=data/chunks_long.json python3 scripts/pipeline/index_to_es.py
+# 2) BM25 baseline/tuned 평가
+python3 pg-rag/scripts/eval/eval_bm25_top1.py \
+  --golden pg-rag/data/golden_queries_20.json \
+  --index pg-docs-toss-small \
+  --es-url http://localhost:9200
 
-# 3) BM25 baseline/tuned 평가
-python3 scripts/eval/eval_bm25_top1.py --golden data/golden_queries_20.json --index pg-docs-toss --es-url http://localhost:9200
-
-# 4) Hybrid 평가 예시
-python3 scripts/eval/eval_hybrid_top1.py --golden data/golden_queries_20.json --index pg-docs-toss --es-url http://localhost:9200 --bm25-weight 0.7 --knn-weight 0.3 --rank-constant 20</code></pre>
+# 3) Hybrid 평가 예시
+python3 pg-rag/scripts/eval/eval_hybrid_top1.py \
+  --golden pg-rag/data/golden_queries_20.json \
+  --index pg-docs-toss-small \
+  --es-url http://localhost:9200 \
+  --bm25-weight 0.7 \
+  --knn-weight 0.3 \
+  --rank-constant 20</code></pre>
 
         <div class="footer-note">
             <strong>Evidence Files</strong><br/>
@@ -467,31 +462,6 @@ python3 scripts/eval/eval_hybrid_top1.py --golden data/golden_queries_20.json --
             <a target="_blank" rel="noopener noreferrer" href="https://github.com/fluanceifi/Hybrid-RAG-Portfolio/blob/main/data/hybrid_eval_report_9_1_dedup.md">data/hybrid_eval_report_9_1_dedup.md</a><br/>
             <a target="_blank" rel="noopener noreferrer" href="https://github.com/fluanceifi/Hybrid-RAG-Portfolio/blob/main/data/hybrid_eval_report_7_3_large.md">data/hybrid_eval_report_7_3_large.md</a><br/>
             <a href="./assets/data/metrics.json">portfolio/assets/data/metrics.json</a><br/>
-        </div>
-    </section>
-
-    <section class="page">
-        <h2 class="section-title">추가 캡처 요청 목록</h2>
-        <p class="section-desc">
-            현재 페이지는 벡터 도식(SVG) 기준으로 완성했다. 아래 자료를 주면 실전 데모 캡처 중심으로 교체할 수 있다.
-        </p>
-        <div class="summary-grid">
-            <article class="summary-card">
-                <h3>필수 캡처 후보</h3>
-                <ul class="tight-list">
-                    <li><code>/ask/compare</code> 결과 화면 (BM25 vs kNN vs Hybrid)</li>
-                    <li>"승인된 결제를 되돌리는 API" 질의 결과 캡처</li>
-                    <li>dedup 적용 전/후 동일 가중치 결과 화면</li>
-                </ul>
-            </article>
-            <article class="summary-card">
-                <h3>선택 캡처 후보</h3>
-                <ul class="tight-list">
-                    <li>small 85:15와 9:1 비교 실행 로그 캡처</li>
-                    <li>large 7:3 실행 로그 캡처</li>
-                    <li>발표 슬라이드에서 원본 유지가 필요한 도식</li>
-                </ul>
-            </article>
         </div>
     </section>
 </main>
