@@ -1,8 +1,7 @@
 # RAG 검색 정확도 개선 실험 요약
-## 모델: text-embedding-3-small (OpenAI 최저가 임베딩 모델)
-## 데이터: chunks_long.json / 인덱스: pg-docs-toss-small
-## 골든셋: data/golden_queries_20.json (20개 쿼리)
-## 작성일: 2026-03-29
+ 모델: text-embedding-3-small (OpenAI 최저가 임베딩 모델)
+ 데이터: chunks_long.json / 인덱스: pg-docs-toss-small
+ 골든셋: data/golden_queries_20.json (20개 쿼리)
 
 [핵심 결론]
 모델 교체 없이, 데이터 구조화 + 검색 튜닝만으로
