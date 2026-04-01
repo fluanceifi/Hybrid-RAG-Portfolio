@@ -1,10 +1,9 @@
-==============================================================================
-Hybrid Top-1 Accuracy Comparison (20-query Golden Set)
-==============================================================================
-Hybrid setup: bm25=0.7, knn=0.3, rank_constant=20
-Total queries: 20
-BM25 Tuned (title/content boosted): 95.00%
-Hybrid RRF (0.7:0.3): 45.00%
+# Hybrid Top-1 Accuracy Comparison (20-query Golden Set)
+
+Hybrid setup: bm25=0.7, knn=0.3, rank_constant=20 <br>
+Total queries: 20 <br>
+BM25 Tuned (title/content boosted): 95.00% <br>
+Hybrid RRF (0.7:0.3): 45.00% <br>
 
 | Query | Expected | BM25 Tuned Top-1 | BM25 | Hybrid Top-1 | Hybrid |
 |---|---|---|---:|---|---:|
