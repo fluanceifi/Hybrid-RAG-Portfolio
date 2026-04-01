@@ -1,4 +1,4 @@
-# BM25 Top-1 Accuracy Comparison (20-query Golden Set)
+# BM25 Top-1 Accuracy Comparison (20-query Set)
 
 Total queries: 20
 Baseline (match content)      : 35.00%
